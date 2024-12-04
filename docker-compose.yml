@@ -1,0 +1,21 @@
+services:
+    php:
+        build: ./docker/php/
+        command: php -S 0.0.0.0:8080 -t /app/public
+        working_dir: /app
+        stop_signal: SIGINT
+        ports:
+            - 127.0.0.1:${HOST_PORT_TO_LISTEN:-18887}:8080
+        volumes:
+            - ./php:/app:rw
+        env_file: .env
+
+    postgres:
+        image: postgres:16
+        shm_size: 128mb
+        volumes:
+            - ./docker/db/data:/var/lib/postgresql/data:rw
+            - "./docker/db/initdb.sh:/docker-entrypoint-initdb.d/initdb.sh:ro"
+            - "./db:/app:ro"
+        environment:
+            - POSTGRES_PASSWORD

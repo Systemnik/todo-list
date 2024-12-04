@@ -1,0 +1,17 @@
+{
+    "name": "tests/bjn_test",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aleksey Mamonov",
+            "email": "systemnik@ya.ru"
+        }
+    ],
+    "require": {}
+}
