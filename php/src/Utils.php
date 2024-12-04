@@ -35,12 +35,23 @@ final class Utils
      */
     public static function qs(array $replace = []): string
     {
-        $validParams = ['page', 'sort'];
         if (empty($_GET)) {
-            $_GET = [];;
+            $_GET = [];
         }
 
-        $params = array_intersect_key($_GET, array_flip($validParams));
+        // Так как эти значения могут подставляться в вёрстку,
+        // то желательно отфильтровать
+        $validParams = [
+            'page'=>'#^\d+$#iu',
+            'sort'=>'#^[a-z_]+$#iu',
+        ];
+        foreach ($validParams as $k => $pattern) {
+            if (isset($_GET[$k]) && !preg_match($pattern, $_GET[$k])) {
+                unset($_GET[$k]);
+            }
+        }
+
+        $params = array_intersect_key($_GET, $validParams);
         foreach ($replace as $k => $v) {
             if (strlen(strval($v)) < 1) {
                 unset($params[$k]);

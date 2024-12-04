@@ -151,7 +151,7 @@ final class Controller
             $page = 1;
         }
 
-        $sortingOptions = [
+        $sortOptions = [
             ''=>'Сортировать',
             'name_asc'=>'По имени',
             'name_desc'=>'По имени в обратном порядке',
@@ -169,7 +169,7 @@ final class Controller
                 'offset'=>$offset,
             ]),
             'sortRequested'=>$sortRequested,
-            'sortingOptions'=>$sortingOptions,
+            'sortOptions'=>$sortOptions,
             'page'=>$page,
             'pageSize'=>self::PAGE_SIZE,
             'total'=>$this->tasks->getCount(),
@@ -262,7 +262,7 @@ final class Controller
         if ($res === false) {
             Utils::flashMessage('Изменений нет, нечего обновлять', 'warning');
         } else {
-            Utils::flashMessage('Изменения сохранены');
+            Utils::flashMessage("Изменения в задаче #{$id} сохранены");
         }
     }
 

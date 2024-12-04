@@ -72,7 +72,7 @@ if (!empty($flashMessage['text'])) {
     <div class="col-md-8 offset-md-2 text-center">
       <select class="form-select" id="select-sort">
       <?php
-      foreach ($sortingOptions as $k => $v) {
+      foreach ($sortOptions as $k => $v) {
         $selected = false;
         if ($k === $sortRequested) {
           $selected = ' selected="selected"';
