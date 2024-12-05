@@ -1,13 +1,12 @@
 services:
     php:
         build: ./docker/php/
-        command: php -S 0.0.0.0:8080 -t /app/public
         working_dir: /app
-        stop_signal: SIGINT
         ports:
-            - 127.0.0.1:${HOST_PORT_TO_LISTEN:-18887}:8080
+            - 127.0.0.1:${HOST_PORT_TO_LISTEN:-18888}:9000
         volumes:
             - ./php:/app:rw
+            - ./docker/php/pool.conf:/usr/local/etc/php-fpm.d/www.conf:ro
         env_file: .env
 
     postgres:

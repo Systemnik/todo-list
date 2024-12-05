@@ -1,4 +1,4 @@
-FROM php:8.3-cli-alpine AS test_image
+FROM php:8.3-fpm-alpine AS test_image
 
 RUN apk add --no-cache postgresql-dev zip bash \
     && docker-php-ext-install pdo_pgsql opcache
