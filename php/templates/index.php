@@ -223,8 +223,8 @@ $this->tpl('_pager', [
           </div>
           <div class="form-check mb-3">
             <input type="hidden" name="is_done" value="0" />
-            <input class="form-check-input" type="checkbox" name="is_done" value="1" />
-            <label class="form-check-label" for="task-done">
+            <input class="form-check-input" type="checkbox" name="is_done" value="1" id="input-task-is-done"/>
+            <label class="form-check-label" for="input-task-is-done">
               Задача выполнена
             </label>
           </div>
