@@ -186,6 +186,9 @@ final class Controller
      */
     public function taskAction()
     {
+        if (empty($_POST['id'])) {
+            throw new ApiException('Необходимо указать ID задачи', 400);
+        }
         $item = $this->tasks->getOne(intval($_POST['id']));
         if (empty($item)) {
             throw new ApiException('Такой задачи нет в базе', 404);
@@ -294,7 +297,12 @@ final class Controller
      */
     public function logoutAction()
     {
-        unset($_SESSION['authorized']);
+        if (
+            !empty($_SERVER['REQUEST_METHOD']) &&
+            $_SERVER['REQUEST_METHOD'] === 'POST'
+        ) {
+            unset($_SESSION['authorized']);
+        }
     }
 
     /**
@@ -302,7 +310,7 @@ final class Controller
      */
     public function notFoundAction()
     {
-        throw new ApiException('Такого действия нет', 400);
+        throw new ApiException('Такого действия нет', 404);
     }
 
     /**

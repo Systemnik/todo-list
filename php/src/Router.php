@@ -11,6 +11,8 @@ class Router
     public function getRequestedAction(): string
     {
         $uri = strtolower(trim($_SERVER['REQUEST_URI'], '/'));
+        $uri = preg_replace('#\?.*$#iu', '', $uri);
+
         if (empty($uri)) {
             return 'index';
         }
@@ -25,8 +27,12 @@ class Router
 
         $uriParts = explode('/', $uri);
         $lastPart = array_pop($uriParts);
-        if (empty($lastPart) || !array_key_exists($lastPart, $map)) {
+        if (empty($lastPart)) {
             return 'index';
+        }
+
+        if(!array_key_exists($lastPart, $map)) {
+            return 'notFound';
         }
 
         return $map[$lastPart];
