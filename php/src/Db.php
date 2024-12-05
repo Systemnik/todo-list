@@ -8,7 +8,7 @@ class Db
     /**
      * Пока просто метод для создания PDO
      */
-    public function getPDO()
+    public function getPDO(): PDO
     {
         $env = getenv();
 
@@ -45,7 +45,7 @@ class Db
     /**
      * Экранирует название поля
      */
-    public function quoteColumn(string $key)
+    public function quoteColumn(string $key): false|string
     {
         $key = trim($key);
         if (strlen($key) < 1) {

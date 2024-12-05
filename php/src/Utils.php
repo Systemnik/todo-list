@@ -8,7 +8,7 @@ final class Utils
     /**
      * Чтобы не писать длинный вариант
      */
-    public static function htmlize($var)
+    public static function htmlize($var): bool|string
     {
         if (!is_string($var)) {
             return false;
@@ -19,15 +19,18 @@ final class Utils
     /**
      * Сохраняет/получает одноразовое сообщение в сессии
      */
-    public static function flashMessage(string $text = null, string $type = 'success')
+    public static function flashMessage(string $text = null, string $type = 'success'): bool|array
     {
         if (!is_null($text)) {
             $_SESSION['flashMessage'] = ['text'=>$text, 'type'=>$type];
-        } elseif (!empty($_SESSION['flashMessage'])) {
+            return true;
+        }
+        if (!empty($_SESSION['flashMessage'])) {
             $msg = $_SESSION['flashMessage'];
             unset($_SESSION['flashMessage']);
             return $msg;
         }
+        return false;
     }
 
     /**

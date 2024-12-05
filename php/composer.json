@@ -13,5 +13,7 @@
             "email": "systemnik@ya.ru"
         }
     ],
-    "require": {}
+    "require": {
+      "ext-pdo": "*"
+    }
 }

@@ -58,7 +58,7 @@ final class Controller
     /**
      * Зачаток фронт-контроллера
      */
-    public function run()
+    public function run(): void
     {
         // Определение запрошенного действия
         $method = (new Router)->getRequestedAction();
@@ -82,25 +82,29 @@ final class Controller
         try {
             $res = call_user_func([$this, $method]);
         } catch (ApiException $e) {
-            return $this->responseJson([
+            $this->responseJson([
                 'status'=>$e->getCode(),
                 'message'=>$e->getMessage(),
             ]);
-        } catch (DbException $e) {
-            return $this->responseJson([
+            return;
+        } catch (DbException) {
+            $this->responseJson([
                 'status'=>500,
                 'message'=>'Не удалось обработать запрос, попробуйте повторить попытку позже',
             ]);
+            return;
         } catch (Exception $e) {
-            return $this->responseJson([
+            $this->responseJson([
                 'status'=>500,
                 'message'=>$e->getMessage(),
             ]);
+            return;
         }
 
         // Если ответ в виде массива
         if (!empty($res) && is_array($res)) {
-            return $this->responseJson($res);
+            $this->responseJson($res);
+            return;
         }
 
         // Сейчас все сабмиты подразумевают
@@ -339,14 +343,14 @@ final class Controller
     /**
      * Старт сессии, если это возможно
      */
-    private function sessionStart(): bool
+    private function sessionStart(): void
     {
         if (PHP_SAPI === 'cli') {
-			return true;
+			return;
 		}
 		if (isset($_SESSION)) {
 			// Мог сработать автостарт
-			return true;
+			return;
 		}
 
         // Если в куке пришло что-то невалидное
@@ -368,7 +372,5 @@ final class Controller
         if (!headers_sent()) {
             session_start();
         }
-
-        return true;
     }
 }

@@ -5,6 +5,8 @@
  * @var int $total
  * @var int $page
  * @var int $pageSize
+ * @var array $sortOptions
+ * @var string $sortRequested
  */
 ?>
 <!doctype html>
@@ -406,7 +408,7 @@ document
 // Сортировка
 document
   .querySelector('#select-sort')
-  .addEventListener('change', function (e) {
+  .addEventListener('change', function () {
     window.location.href = this.value;
   });
 

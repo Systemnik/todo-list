@@ -30,7 +30,7 @@ class Tasks
      */
     public function getOne(int $id): array|false
     {
-        $sql = 'select * from tasks where id = ' . intval($id);
+        $sql = 'select * from tasks where id = ' . $id;
         return $this->pdo->query($sql)->fetch();
     }
 
