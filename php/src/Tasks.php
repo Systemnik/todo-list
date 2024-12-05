@@ -140,8 +140,13 @@ class Tasks
         }
         $sqlVals[] = $id;
 
+        // Помечать обновлённым только если действительно поменяли текст
+        if (isset($fields['content'])) {
+            $sqlParts[] = 'is_updated = true';
+        }
+
         $sql = 'update tasks
-        set ' . implode(', ', $sqlParts) . ', updated_at = now(), is_updated = true
+        set ' . implode(', ', $sqlParts) . ', updated_at = now()
         where id = ?
         returning id';
         $stmt = $this->pdo->prepare($sql);
