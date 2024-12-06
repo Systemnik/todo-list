@@ -72,10 +72,10 @@ final class Controller
 
         // Сразу обрезать лишние пробелы, если есть
         if (!empty($_POST)) {
-            array_walk_recursive($_POST, fn($v) => is_string($v) ? trim($v) : $v);
+            array_walk_recursive($_POST, fn(&$v) => $v = (is_string($v) ? trim($v) : $v));
         }
         if (!empty($_REQUEST)) {
-            array_walk_recursive($_REQUEST, fn($v) => is_string($v) ? trim($v) : $v);
+            array_walk_recursive($_REQUEST, fn(&$v) => $v = (is_string($v) ? trim($v) : $v));
         }
 
         // Выполнение
